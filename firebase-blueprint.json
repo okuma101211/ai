@@ -1,0 +1,107 @@
+{
+  "entities": {
+    "AnalysisLog": {
+      "title": "Analysis Log",
+      "description": "Logs of business idea analyses performed by the AI board.",
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "description": "Type of input: text, image, or video" },
+        "inputContent": { "type": "string", "description": "The text content of the idea" },
+        "mediaDescription": { "type": "string", "description": "Description of uploaded media" },
+        "scale": { "type": "integer", "description": "Size of the board (100, 1000, 10000)" },
+        "isRoastMode": { "type": "boolean", "description": "Whether roast mode was enabled" },
+        "targetCountry": { "type": "string", "description": "Target market" },
+        "targetGeneration": { "type": "string", "description": "Target generation" },
+        "targetGender": { "type": "string", "description": "Target gender" },
+        "language": { "type": "string", "description": "Language of analysis" },
+        "results": { "type": "object", "description": "The analysis results from Gemini" },
+        "timestamp": { "type": "string", "format": "date-time", "description": "When the analysis was performed" }
+      },
+      "required": ["type", "scale", "isRoastMode", "language", "results", "timestamp"]
+    },
+    "BattleLog": {
+      "title": "Battle Log",
+      "description": "Logs of A/B battles between two ideas.",
+      "type": "object",
+      "properties": {
+        "ideaA": { "type": "string", "description": "Description of Idea A" },
+        "ideaB": { "type": "string", "description": "Description of Idea B" },
+        "language": { "type": "string", "description": "Language of analysis" },
+        "results": { "type": "object", "description": "The battle results from Gemini" },
+        "timestamp": { "type": "string", "format": "date-time", "description": "When the battle was performed" }
+      },
+      "required": ["ideaA", "ideaB", "language", "results", "timestamp"]
+    },
+    "ConsultationLog": {
+      "title": "Consultation Log",
+      "description": "Logs of initial AI board consultations.",
+      "type": "object",
+      "properties": {
+        "initialMessage": { "type": "string", "description": "The first message in the chat" },
+        "history": { "type": "array", "items": { "type": "object" }, "description": "Chat history" },
+        "timestamp": { "type": "string", "format": "date-time", "description": "When the chat started" }
+      },
+      "required": ["initialMessage", "history", "timestamp"]
+    },
+    "ConsultationMessage": {
+      "title": "Consultation Message",
+      "description": "Individual messages in an ongoing consultation chat.",
+      "type": "object",
+      "properties": {
+        "chatId": { "type": "string", "description": "Reference to the consultation_logs document" },
+        "userMessage": { "type": "string", "description": "Message from the user" },
+        "modelResponse": { "type": "string", "description": "Response from the AI" },
+        "timestamp": { "type": "string", "format": "date-time", "description": "When the message was sent" }
+      },
+      "required": ["chatId", "userMessage", "modelResponse", "timestamp"]
+    },
+    "Feedback": {
+      "title": "Feedback",
+      "description": "User feedback on analysis results.",
+      "type": "object",
+      "properties": {
+        "logId": { "type": "string", "description": "Reference to the analysis_logs document" },
+        "isAccurate": { "type": "boolean", "description": "Whether the user liked the result" },
+        "feedbackText": { "type": "string", "description": "Optional text feedback" },
+        "timestamp": { "type": "string", "format": "date-time", "description": "When feedback was submitted" }
+      },
+      "required": ["logId", "isAccurate", "timestamp"]
+    },
+    "UserHistory": {
+      "title": "User History",
+      "description": "User's past sessions (Analyzer, Battle, Consultant).",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "The user's ID" },
+        "type": { "type": "string", "enum": ["analyzer", "battle", "consultant"], "description": "The type of session" },
+        "title": { "type": "string", "description": "A short title for the session" },
+        "summary": { "type": "string", "description": "A brief summary of the session" },
+        "data": { "type": "object", "description": "The full session data" },
+        "score": { "type": "number", "description": "The overall score (if applicable)" },
+        "timestamp": { "type": "string", "format": "date-time", "description": "When the session occurred" }
+      },
+      "required": ["userId", "type", "title", "data", "timestamp"]
+    },
+    "User": {
+      "title": "User",
+      "description": "User profiles storing credits and plan information.",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string", "description": "User's email address" },
+        "credits": { "type": "integer", "description": "Remaining analysis credits" },
+        "plan": { "type": "string", "enum": ["free", "pro"], "description": "User's subscription plan" },
+        "createdAt": { "type": "string", "format": "date-time", "description": "When the user was created" }
+      },
+      "required": ["email", "credits", "plan", "createdAt"]
+    }
+  },
+  "firestore": {
+    "users": { "schema": "User", "description": "Collection of user profiles" },
+    "analysis_logs": { "schema": "AnalysisLog", "description": "Collection of analysis results" },
+    "battle_logs": { "schema": "BattleLog", "description": "Collection of battle results" },
+    "consultation_logs": { "schema": "ConsultationLog", "description": "Collection of chat sessions" },
+    "consultation_messages": { "schema": "ConsultationMessage", "description": "Collection of individual chat messages" },
+    "feedback": { "schema": "Feedback", "description": "Collection of user feedback" },
+    "user_history": { "schema": "UserHistory", "description": "Collection of user past sessions" }
+  }
+}

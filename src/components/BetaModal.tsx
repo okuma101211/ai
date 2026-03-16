@@ -38,25 +38,25 @@ export function BetaModal() {
           >
             <div className="p-8 sm:p-12 flex flex-col items-center text-center">
               <div className="w-16 h-16 bg-black text-white flex items-center justify-center rounded-2xl mb-8 shadow-lg">
-                <span className="font-mono text-2xl font-light tracking-tighter">B</span>
+                <span className="font-mono text-2xl font-light tracking-tighter">1.0</span>
               </div>
               
               <h2 className="text-3xl sm:text-4xl font-light tracking-tighter mb-4">
-                The Boardroom 10000 <br />
-                <span className="text-gray-400 text-xl sm:text-2xl tracking-widest uppercase mt-2 block">Beta v1.0</span>
+                Beta is over. <br />
+                <span className="text-black font-medium">v1.0.0 is Live.</span>
               </h2>
               
               <p className="text-gray-600 font-light leading-relaxed mb-10 text-sm sm:text-base">
-                Currently available completely for free.<br className="hidden sm:block" />
-                Feel free to use your 10,000-member AI board of directors.<br />
-                <span className="text-xs text-gray-400 mt-4 block">* The free period may end without prior notice.</span>
+                The ultimate business simulation is now stable.<br className="hidden sm:block" />
+                Experience the power of 10,000 AI board members.<br />
+                <span className="text-xs text-black font-semibold mt-4 block uppercase tracking-widest">Official Launch Special: Free for a limited time</span>
               </p>
 
               <Button 
                 onClick={handleClose}
-                className="w-full bg-black text-white hover:bg-gray-800 rounded-none h-14 text-sm tracking-widest uppercase transition-all shadow-md hover:shadow-xl"
+                className="w-full bg-black text-white hover:bg-gray-800 rounded-none h-14 text-sm tracking-widest uppercase transition-all shadow-md hover:shadow-xl font-medium"
               >
-                Enter Boardroom
+                Enter the Boardroom
               </Button>
             </div>
           </motion.div>

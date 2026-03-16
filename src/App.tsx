@@ -6,16 +6,24 @@
 import { BrowserRouter, Routes, Route } from "react-router";
 import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
+import Pricing from "./pages/Pricing";
 import { BetaModal } from "./components/BetaModal";
+import ErrorBoundary from "./components/ErrorBoundary";
+import { AuthProvider } from "./contexts/AuthContext";
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <BetaModal />
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-      </Routes>
-    </BrowserRouter>
+    <ErrorBoundary>
+      <AuthProvider>
+        <BrowserRouter>
+          <BetaModal />
+          <Routes>
+            <Route path="/" element={<Landing />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/pricing" element={<Pricing />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+    </ErrorBoundary>
   );
 }
